@@ -6,6 +6,7 @@ import java.util.concurrent.TimeUnit;
 
 public class FareCalculatorService {
     private static final double ONE_HOUR_MILLIS = TimeUnit.HOURS.toMillis(1L);
+    private static final double HALF_HOUR_MILLIS = TimeUnit.MINUTES.toMillis(30L);
 
     public void calculateFare(Ticket ticket) {
         if ((ticket.getOutTime() == null) || (ticket.getOutTime().before(ticket.getInTime()))) {
@@ -13,6 +14,12 @@ public class FareCalculatorService {
         }
 
         long durationMillis = ticket.getOutTime().getTime() - ticket.getInTime().getTime();
+
+        if (durationMillis <= HALF_HOUR_MILLIS) {
+            // <=30min is free
+            ticket.setPrice(0);
+            return;
+        }
 
         double rate;
         switch (ticket.getParkingSpot().getParkingType()) {
