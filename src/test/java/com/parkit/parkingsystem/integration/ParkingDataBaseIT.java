@@ -90,7 +90,7 @@ public class ParkingDataBaseIT {
         ticket = ticketDAO.getTicket(TICKET_NUMBER);
         assertNotNull(ticket);
         assertEquals(outTime, ticket.getOutTime().getTime());
-        assertEquals(Fare.CAR_RATE_PER_HOUR * (recurring ? 0.95D : 1.0D), ticket.getPrice());
+        assertEquals(Fare.CAR_RATE_PER_HOUR * (recurring ? Fare.RECURRING_DISCOUNT : 1.0), ticket.getPrice());
     }
 
     @Test
