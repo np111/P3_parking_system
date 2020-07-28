@@ -85,4 +85,24 @@ public class TicketDAO {
         }
         return false;
     }
+
+    public boolean isRecurringUser(String vehicleRegNumber) {
+        Connection con = null;
+        boolean res;
+        try {
+            con = dataBaseConfig.getConnection();
+            PreparedStatement ps = con.prepareStatement(DBConstants.HAS_OUT_TICKET);
+            ps.setString(1, vehicleRegNumber);
+            ResultSet rs = ps.executeQuery();
+            res = rs.next();
+            dataBaseConfig.closeResultSet(rs);
+            dataBaseConfig.closePreparedStatement(ps);
+        } catch (Exception ex) {
+            logger.error("Error checking recurring user", ex);
+            res = false;
+        } finally {
+            dataBaseConfig.closeConnection(con);
+        }
+        return res;
+    }
 }
