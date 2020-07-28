@@ -22,7 +22,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -76,17 +75,28 @@ public class ParkingDataBaseIT {
     }
 
     @Test
-    public void testParkingLotExit() {
+    private void testParkingLotExit() {
+        testParkingLotExit(false);
+    }
+
+    public void testParkingLotExit(boolean recurring) {
         testParkingACar();
+        Ticket ticket = ticketDAO.getTicket(TICKET_NUMBER);
         ParkingService parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
-        long outTime = (System.currentTimeMillis() / 1000L * 1000L) + 60 * 60 * 1000;
+        long outTime = ticket.getInTime().getTime() + 60 * 60 * 1000;
         parkingService.processExitingVehicle(new Date(outTime));
 
         // check that the fare generated and out time are populated correctly in the database
-        Ticket ticket = ticketDAO.getTicket(TICKET_NUMBER);
+        ticket = ticketDAO.getTicket(TICKET_NUMBER);
         assertNotNull(ticket);
         assertEquals(outTime, ticket.getOutTime().getTime());
-        assertTrue(ticket.getPrice() > 0);
+        assertEquals(Fare.CAR_RATE_PER_HOUR * (recurring ? 0.95D : 1.0D), ticket.getPrice());
     }
 
+    @Test
+    public void testRecurringDiscount() {
+        testParkingLotExit();
+        testParkingLotExit(true);
+        testParkingLotExit(true);
+    }
 }
