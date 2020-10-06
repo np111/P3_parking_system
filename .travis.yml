@@ -1,0 +1,18 @@
+dist: xenial
+language: java
+services:
+  - docker
+jdk:
+  - openjdk8
+before_install:
+  - docker pull mysql:8.0.17
+  - docker run -d -p 127.0.0.1:3306:3306 --name mysqld -e MYSQL_ROOT_PASSWORD=rootroot
+    mysql:8.0.17 --innodb_log_file_size=256MB --innodb_buffer_pool_size=512MB --max_allowed_packet=16MB --local-infile=1
+  - .travis/wait_mysql.sh -u root -prootroot
+before_script:
+  - docker exec -i mysqld mysql -u root -prootroot < ./resources/Data.sql
+  - docker exec mysqld mysql -u root -prootroot -e 'show databases'
+script:
+  - mvn verify -Dmaven.javadoc.skip=true -B
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
