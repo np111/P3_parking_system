@@ -1,4 +1,5 @@
-# Parking System
+# Parking System &middot; [![Build Status](https://travis-ci.com/np111/P4_parking_system.svg?branch=master)](https://travis-ci.com/np111/P4_parking_system) [![codecov.io](https://codecov.io/github/np111/P4_parking_system/coverage.svg?branch=master)](https://codecov.io/github/np111/P4_parking_system?branch=master)
+
 A command line app for managing the parking system. 
 This app uses Java to run and stores the data in Mysql DB.
 
@@ -8,50 +9,33 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-What things you need to install the software and how to install them
-
-- Java 1.8
-- Maven 3.6.2
-- Mysql 8.0.17
-
-### Installing
-
-A step by step series of examples that tell you how to get a development env running:
-
-1.Install Java:
-
-https://docs.oracle.com/javase/8/docs/technotes/guides/install/install_overview.html
-
-2.Install Maven:
-
-https://maven.apache.org/install.html
-
-3.Install MySql:
-
-https://dev.mysql.com/downloads/mysql/
-
-After downloading the mysql 8 installer and installing it, you will be asked to configure the password for the default `root` account.
-This code uses the default root account to connect and the password can be set as `rootroot`. If you add another user/credentials make sure to change the same in the code base.
-
-..Or Use Docker:
-
-Instead of installing mysql on your system, you can use the docker-compose
-development environment (it automatically imports the Data.sql file):
-```bash
-./dev.sh docker-up
-```
+- Install **Java 1.8**
+  [(link)](https://docs.oracle.com/javase/8/docs/technotes/guides/install/install_overview.html)
+- Install **Maven 3.6.2**
+  [(link)](https://maven.apache.org/install.html)
+- Install and configure **Mysql 8.0.17**
+  - Download and install mysql [(link)](https://dev.mysql.com/downloads/mysql/),
+    set the root password to `rootroot` and import `resources/Data.sql`.
+  - *--- or ---*
+  - Use the docker-compose development environment (it automatically setup everything):
+    ```bash
+    ./dev.sh docker-up
+    ```
 
 ### Running App
 
-Post installation of MySQL, Java and Maven, you will have to set up the tables and data in the data base.
-For this, please run the sql commands present in the `Data.sql` file under the `resources` folder in the code base.
-
-Finally, you will be ready to import the code into an IDE of your choice and run the App.java to launch the application.
+```bash
+mvn package
+java -jar target/parking-system-1.0-SNAPSHOT-jar-with-dependencies.jar
+```
 
 ### Testing
 
-The app has unit tests and integration tests written. More of these need to be added and in some places that can be seen mentioend as `TODO` comments. The existing tests need to be triggered from maven-surefire plugin while we try to generate the final executable jar file.
+```bash
+mvn verify
+```
 
-To run the tests from maven, go to the folder that contains the pom.xml file and execute the below command.
+## Notes
+This is a school project (for OpenClassrooms).
 
-`mvn test`
+The goal is to fix and add some features to an existing application ([see the sprint board](https://www.notion.so/727631bfc99b456f996e9b9780ee4383?v=bc18814b128d476d9fa8979409c80330)).
