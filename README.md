@@ -36,10 +36,9 @@ This code uses the default root account to connect and the password can be set a
 ..Or Use Docker:
 
 Instead of installing mysql on your system, you can use the docker-compose
-development environment in `./devenv` (it automatically imports the Data.sql file):
+development environment (it automatically imports the Data.sql file):
 ```bash
-cd devenv
-docker-compose up -d
+./dev.sh docker-up
 ```
 
 ### Running App
