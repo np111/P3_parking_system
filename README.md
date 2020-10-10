@@ -19,7 +19,7 @@ These instructions will get you a copy of the project up and running on your loc
   - *--- or ---*
   - Use the docker-compose development environment (it automatically setup everything):
     ```bash
-    ./dev.sh docker-up
+    ./dev.sh docker up -d
     ```
 
 ### Running App
