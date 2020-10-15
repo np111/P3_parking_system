@@ -3,6 +3,9 @@
 A command line app for managing the parking system. 
 This app uses Java to run and stores the data in Mysql DB.
 
+You can find a review of this code I inherited here:
+[Legacy code review \[EN/FR\]](https://github.com/np111/P4_parking_system/issues/1).
+
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
@@ -36,6 +39,7 @@ mvn verify
 ```
 
 ## Notes
+
 This is a school project (for OpenClassrooms).
 
 The goal is to fix and add some features to an existing application ([see the sprint board](https://www.notion.so/727631bfc99b456f996e9b9780ee4383?v=bc18814b128d476d9fa8979409c80330)).
